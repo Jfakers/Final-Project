@@ -1,7 +1,9 @@
 # Running the intercoder Reliability Analysis for JA & CT Dec 14th 2017 
 library(irr)  # running the intercoder reliability file
 list.files()
-d <- read.csv("IntercoderReliability.csv", stringsAsFactors = F)
+
+d <- read.csv(paste(p.rawdata,"IntercoderReliability.csv", sep = ""), stringsAsFactors = FALSE)
+
 # there should only be 15 rows of information
 d<-d[c(1:15), ]  # my indexing isn't working..
 
@@ -152,5 +154,5 @@ mean(kappa.scores)  # 0.444
 sd(kappa.scores)  # 0.256
 
 # mean of the kappa scores without the Success Outcomes
-mean(kappa.scores[1:7])  # 0.520  
+mean(kappa.scores[1:7])  # 0.520 
 sd(kappa.scores[1:7])  # 0.240
