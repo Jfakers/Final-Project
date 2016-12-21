@@ -1,15 +1,10 @@
 # Running the intercoder Reliability Analysis for JA & CT Dec 14th 2017 
-library(irr)  # running the intercoder reliability file
-list.files()
 
 d <- read.csv(paste(p.rawdata,"IntercoderReliability.csv", sep = ""), stringsAsFactors = FALSE)
+d[is.na(d)]<-""  # this makes NA's into blanks since they will later be changed
 
 # there should only be 15 rows of information
-d<-d[c(1:15), ]  # my indexing isn't working..
-
-# I think I will have to farmer some of the data, since I am comparing files with 1, and NA's for some columns
-
-head(d)
+d<-d[c(1:15), ] 
 
 # Lets make a vector to place all of the values into 
 kappa.scores <- rep(NA, 10)
@@ -78,6 +73,7 @@ for(i in 1:nrow(indic)){
 kap.indic <- kappa2(indic)
 kap.indic$value  # 1.000 reads NaN, but this is due to 100% agreement
 kappa.scores[5] <- 1
+
 # for Economic Success(Econ_), Note: NA's have to be an extra category (not 0), since blank doesn't equal 0 in this instance
 colnames(d)
 col.ja <- 21

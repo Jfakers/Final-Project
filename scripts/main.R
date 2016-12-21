@@ -60,9 +60,13 @@ colnames(d)[3] <- "Participation.pretty"
 
 nrow(d)  # should be 15
 
+# now save new data table into data folder
+write.csv(d, paste(p.data, "ReducedSimData.csv", sep = ""))
+
 # Download necessary library----
-library(MuMIn)
-library(logistf)
+library(MuMIn)  # for second order AIC 
+library(logistf)  # for penalized regression analysis 
+library(irr)  # running the intercoder reliability file
 # Loading necessary Function----
 # step AICc function from http://wwwuser.gwdg.de/~cscherb1/stepAICc.txt
 # Code originally written by, B.D. Ripley and W.N. Venables

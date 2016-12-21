@@ -15,7 +15,9 @@
 
 # PSEUDO-REPLICATION DATA VISUALIZATIONS ---- 
 
-d<-d.comp  #making d = to the simulated data frame
+d <- read.csv(paste(p.data, "AggregateSimData.csv", sep = ""), strip.white = TRUE, stringsAsFactors = F)
+d[is.na(d)]<-""  # this makes NA's into blanks since they will later be changed
+d <- d[,-1]
 
 # LOOKING SOLELY AT SUCCESSES (PRESENT) AND NOT PRESENT. 
 # isolating when a variable is present (i.e. it equals 1)
@@ -74,7 +76,7 @@ present <- grep("1|0", response.var)
 barplot(table(d$Economic.Success[present], d[present,30]), main = colnames(d2)[i], xlab = colnames(d)[30], ylab = "Economic.Success", legend.text = T)
 table(d$Economic.Success[present], d[present,30])
 
-# Lets make a visualation for all three successs
+# Lets make a visualation for all three successs vs motivation
 colnames(d)
 par(mfrow = c(1,3))  # rows, columns
 for(n in c(24,26,28)){

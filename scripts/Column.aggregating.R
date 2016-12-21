@@ -1,9 +1,8 @@
 # aggregating data columns---- 
+d <- read.csv(paste(p.data, "CompSimData.csv", sep = ""), strip.white = TRUE, stringsAsFactors = F)
+d[is.na(d)]<-""  # this makes NA's into blanks since they will later be changed
+d <- d[,-1]  # I don't know why an additional column appears when read, but this removes it  
 
-d <- d.comp
-
-
-# Lets look at at motivation data since that is the most important, for now, & it may be easier to deal with..
 # NOTE: making it into an aggregate allows for the elimination of insufficient data
 
 # aggregating motivation ----
@@ -19,7 +18,8 @@ for (i in 1:nrow(d)){
 }
 # add motive into the d, dataframe
 d<-cbind(d,motive)
-# colnames(d)  = 30
+
+
 
 # aggregating crowding in/out----
 # lets make an aggregate for the crowding in/out outcome, c 21 & 22
@@ -34,6 +34,8 @@ for (i in 1:nrow(d)){
   if(intrin[i] == "1" & extrin[i] == "1")(crowding[i] <- "both")
 }
 d<-cbind(d,crowding)
+
+write.csv(d, paste(p.data, "AggregateSimData.csv", sep = ""))
 
 # NOTE: SOME RESOLUTION IS LOST WITH THIS METHOD, SINCE IF BOTH IN/OUT AREN'T OBSERVED (I.E. = "0") OR DATA IS INSUFFICIENT, 
 # IT IS STILL RECORDED AS INSUFFICIENT DATA

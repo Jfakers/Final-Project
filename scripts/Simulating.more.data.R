@@ -1,6 +1,10 @@
 # we are going to simulate more data----
-# NEED TO FIX THE SEED & save intermediate data alterations
-set.seed(42)
+set.seed(42) # fixing the seed to maintain the same 'random' values
+
+# read updated data sheet from data folder 
+d <- read.csv(paste(p.data, "ReducedSimData.csv", sep = ""), strip.white = TRUE, stringsAsFactors = F)
+d[is.na(d)]<-""  # this makes NA's into blanks since they will later be changed
+d <- d[,-1]  # I don't know why an additional column appears when read, but this removes it  
 d.sim <- d
 
 # Lets start by defining "" as zero's in choice based variables (PES type, Payments, etc.)
@@ -11,7 +15,7 @@ d.sim[4:18] <- d.sim.bin
 # create extra rows to place data into, by making a matrix to be later combined
 mat <- matrix(ncol=ncol(d), nrow=(100-nrow(d))) 
 
-# determining the probablity of x outcome
+# determining the probablity of x outcome, for just one before the loop
 #table(d.sim[,4])  # biodiversity conservation
 #prob.0 <- (table(d.sim[,4])[1] / length(d.sim[,4]))*10  # prob of 0
 #prob.1 <- (table(d.sim[,4])[2] / length(d.sim[,4]))*10  # prob of 1
@@ -111,7 +115,7 @@ for (i in 1:(100-nrow(d))){
 
 for(n in c(25,27,29)){
   for (i in 1:(100-nrow(d))){
-    ran <- sample(d[,n], 1, replace = T)
+    ran <- sample(d[,n], 1, replace = T)  # pulling a sample term, from original data column
     mat[i,n] <- ran
   }
 }
@@ -121,4 +125,4 @@ colnames(mat) <- colnames(d)
 d.comp <- rbind(d.sim, mat)
 
 # lets save this in the data folder
-# write.csv(happy.race.table, paste(p.analysis, "Happy.Race.Table.csv", sep = ""))
+write.csv(d.comp, paste(p.data, "CompSimData.csv", sep = ""))
